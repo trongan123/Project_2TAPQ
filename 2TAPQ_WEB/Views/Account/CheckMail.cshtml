@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/checkmail.css">
+    <title>register screen</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="form-title">Check Mail</h1>
+        <form asp-action="CheckMail">
+            <div class="main-user-info">
+                <input type="hidden" id="OTP" name="OTP" required value="" />
+                <input type="hidden" id="emailt" required name="email" value="" />
+
+
+
+                <div class="user-input-box">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" placeholder="Enter Email" pattern='^[\w-\.]+@@([\w-]+\.)+[\w-]{2,4}$'
+                           oninvalid="this.setCustomValidity('Yêu cầu mail đúng định dạng!')"
+                           oninput="this.setCustomValidity('')">
+                </div>
+
+
+
+
+                <div class="user-input-box2">
+                    <label for="birthday">OTP</label>
+                    <input type="text" name="OTPV" required placeholder="Enter OTP">
+                </div>
+
+                <div class="user-submit-box">
+
+                    <input type="button" class="input" value="Gửi Mã" onclick="SendOTP()">
+
+                    @if (@ViewBag.OTP != null)
+                    {
+                        <label id="send">@ViewBag.OTP</label>
+                    }
+                    else
+                    {
+                        <label id="send"></label>
+
+                    }
+                </div>
+
+
+            </div>
+
+
+            <div class="form-submit-btn">
+                <input type="submit" value="Continue">
+            </div>
+
+        </form>
+
+    </div>
+</body>
+<script src="~/js/jquery-1.11.1.min.js"></script>
+<script src="~/js/checkmail.js"></script>
+</html>

@@ -1,0 +1,117 @@
+﻿@model BusinessObjects.Models.CooperativeRoom
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+
+}
+
+<link rel="stylesheet" href="~/css/cssfarm/index_user.css">
+<link rel="stylesheet" href="~/css/cssfarm/profile_user.css">
+
+<main>
+    <section class="py-5 my-5">
+        <div class="container">
+            <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+                <div class="profile-tab-nav border-right">
+                    <div class="p-4">
+                        <div class="img-circle text-center mb-3">
+                            @if (@ViewBag.User.Image != null)
+                            {
+                                <img src="@ViewBag.User.Image" alt="Image" id="imgA" class="shadow">
+                            }
+                            else
+                            {
+                                <img src="~/images/avatar.png" alt="Image" id="imgA" class="shadow">
+                            }
+
+                        </div>
+
+                        <h4 class="text-center">@ViewBag.User.Fullname</h4>
+                    </div>
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                       <a class="nav-link " asp-action="Profile" aria-selected="true">
+                            <i class="fa fa-home text-center mr-1"></i>
+                            Tài khoản
+                        </a>
+                        <a class="nav-link" asp-action="ChangePassword" aria-selected="false">
+                            <i class="fa fa-key text-center mr-1"></i>
+                            Đổi mật khẩu
+                        </a>
+
+                        <a class="nav-link" asp-action="JoinCooperative" aria-selected="false">
+                            <i class="fa fa-star text-center mr-1"></i>
+                            Hợp tác xã
+                        </a>
+
+
+                    </div>
+                </div>
+                <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" role="tabpanel"
+                         aria-labelledby="account-tab">
+                        <h3 class="mb-4">Bạn đã tham gia vào họp tác xã: @Model.IdCooNavigation.Fullname</h3>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tên hợp tác xã</label>
+                                    <input type="text" class="form-control" value="@Model.IdCooNavigation.Fullname" required disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Số Điện Thoại</label>
+                                    <input type="text" class="form-control" value="@Model.IdCooNavigation.Phone" required disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" value="@Model.IdCooNavigation.Email"
+                                           disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Khu Vực</label>
+                                    <input type="text" class="form-control" value="@Model.IdCooNavigation.IdWardNavigation.Name, @Model.IdCooNavigation.IdWardNavigation.IdDistrictNavigation.Name, @Model.IdCooNavigation.IdWardNavigation.IdDistrictNavigation.IdProvinceNavigation.Name " disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Địa Chỉ</label>
+                                    <input type="text" class="form-control" value="@Model.IdCooNavigation.Address" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                @if (@ViewBag.Member != null)
+                                {
+                                    DateTime a = Convert.ToDateTime(@ViewBag.Member.Date);
+                                    <div class="form-group">
+
+                                        <label>Ngày Vào Hợp Tác Xã</label>
+                                      <input type="text" class="form-control" value="@a.ToString("dd/M/yyyy")" disabled>
+
+                                    </div>
+                                }
+                            </div>
+
+                           
+
+                        </div>
+
+                       
+                       
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+>
+
+<script src="~/js/base64.js"></script>

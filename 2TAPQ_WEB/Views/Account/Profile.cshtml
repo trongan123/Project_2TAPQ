@@ -1,0 +1,165 @@
+﻿@model BusinessObjects.Models.Account
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutProfile.cshtml";
+
+}
+
+<link rel="stylesheet" href="~/css/cssfarm/index_user.css">
+<link rel="stylesheet" href="~/css/cssfarm/profile_user.css">
+
+<main>
+    <section class="py-5 my-5">
+        <div class="container">
+            <div class="bg-white shadow rounded-lg d-block d-sm-flex">
+                <div class="profile-tab-nav border-right">
+                    <div class="p-4">
+                        <div class="img-circle text-center mb-3">
+
+                            @if (@Model.Image != null)
+                            {
+                                <img src="@Model.Image" alt="Image" id="imgA" class="shadow">
+                            }
+                            else
+                            {
+                              <img src="~/images/avatar.png" alt="Image" id="imgA" class="shadow">
+                            }
+                            <div class="middle">
+                                <input type="file" name="FileAvata" id="FileAvata" />
+                            </div>
+                        </div>
+
+                       <h4 class="text-center">@ViewBag.User.Fullname</h4>
+                    </div>
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                       <a class="nav-link " asp-action="Profile" aria-selected="true">
+                            <i class="fa fa-home text-center mr-1"></i>
+                            Tài khoản
+                        </a>
+                        <a class="nav-link" asp-action="ChangePassword" aria-selected="false">
+                            <i class="fa fa-key text-center mr-1"></i>
+                            Đổi mật khẩu
+                        </a>
+
+                        @if (@Model.IdRoleStaff == null)
+                        {
+                            <a class="nav-link" asp-action="JoinCooperative" aria-selected="false">
+                                <i class="fa fa-star text-center mr-1"></i>
+                                Hợp tác xã
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="nav-link"  style='pointer-events: none' asp-action="JoinCooperative" aria-selected="false">
+                                <i class="fa fa-star text-center mr-1"></i>
+                                Hợp tác xã
+                            </a>
+                        }
+
+
+                    </div>
+                </div>
+                <div class="tab-content p-4 p-md-5" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" role="tabpanel"
+                         aria-labelledby="account-tab">
+                        <h3 class="mb-4">Chỉnh Sửa Tài Khoản</h3>
+                        <form asp-action="EditProfile">
+                            <input type="hidden" asp-for="IdAcc" />
+                            <input type="hidden" asp-for="Status" />
+                            <input type="hidden" asp-for="Role" />
+                            <input type="hidden" asp-for="Password" />
+                            <input type="hidden" asp-for="DateJoin" />
+                            <input type="hidden" asp-for="IdWard" />
+                            <input type="hidden" asp-for="Username" />
+                            <input type="hidden" asp-for="Email" />
+                            <input type="hidden" asp-for="IdRoleStaff" />
+
+                            <input type="hidden" asp-for="Image" id="ImageA" value="@Model.Image" />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Tài Khoản</label>
+                                        <input type="text" class="form-control" asp-for="Fullname" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Số Điện Thoại</label>
+                                        <input type="text" class="form-control" asp-for="Phone" required pattern='^(\+84|0[3|5|7|8|9])+([0-9]{8})'
+                                               oninvalid="this.setCustomValidity('Yêu cầu ngập số điện thoại đúng định dạng')"
+                                               oninput="this.setCustomValidity('')">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" class="form-control" value="@Model.Email"
+                                               disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Khu Vực</label>
+                                        <input type="text" class="form-control" value="@Model.IdWardNavigation.Name" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Địa Chỉ</label>
+                                        <input type="text" class="form-control" required asp-for="Address">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Ngày Sinh</label>
+                                        <input type="date" asp-for="Birthday" required
+                                               id="datePickerId"
+                                               oninvalid="this.setCustomValidity('Date wrong fomat')" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Số Lượng Ao</label>
+                                        <input type="text" class="form-control" value="@ViewBag.Pond cái" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Danh thu</label>
+                                        <input type="text" class="form-control" value="@ViewBag.ReceiptsPayment VND" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    @if (@ViewBag.Member != null)
+                                    {
+                                        DateTime a = Convert.ToDateTime(@ViewBag.Member.Date);
+                                        <div class="form-group">
+                                            <label> Ngày Vào Hợp Tác Xã</label>
+                                            <input type="text" class="form-control" value="@a.ToString("dd/M/yyyy")" disabled>
+                                        </div>
+                                    }
+                                </div>
+
+                            </div>
+
+                            <div>
+                                <button type="submit" class="btn-area btn-primary">Cập Nhật</button>
+
+                            </div>
+                        </form>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<script>
+    // Get the modal
+datePickerId.max = new Date().toISOString().split("T")[0];
+</script>
+
+<script src="~/js/base64.js"></script>

@@ -1,0 +1,50 @@
+﻿@model BusinessObjects.Models.DetailReceiptsPayment
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutFarm.cshtml";
+    BusinessObjects.Models.ReceiptsPayment receipt = ViewBag.receipts as BusinessObjects.Models.ReceiptsPayment;
+
+}
+<link rel="stylesheet" href="~/css/cssfarm/createPond.css">
+<main>
+    <div class="testbox">
+        <form asp-action="EditPayment">
+            <input type="hidden" asp-for="IdInvoice" />
+            <input type="hidden" asp-for="IdDetailReceiptsPayments"  />
+            <input type="hidden" asp-for="Description"  />
+            <input type="hidden" asp-for="Status" />
+             <input type="hidden" asp-for="NameStaff" value="@ViewBag.namestaff" />
+            <div class="banner">
+                <h1>Thông tin hóa đơn cần nhập</h1>
+                <img class="img_background" src="~/images/background.jpg" alt="">
+            </div>
+
+            <div class="item">
+                <label for="city">Người Nhập <span>*</span></label>
+                <input type="text" value="@ViewBag.namestaff" name="Staff" disabled/>
+            </div>
+            <div class="item">
+                <label for="name">Tên sản phẩm<span>*</span></label>
+                <input id="Name" type="text" asp-for="Name" name="name" required pattern='^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ 0123456789]{1,50}$'
+                           oninvalid="this.setCustomValidity('Không được quá dài')"
+                           oninput="this.setCustomValidity('')" />
+            </div>
+            <div class="item">
+                <label for="name">Số lượng<span>*</span></label>
+                <input id="Quanlity" type="text" asp-for="Quanlity"  name="Quanlity" pattern="^[0-9]{1,6}$"
+                                                    oninvalid="this.setCustomValidity('Chỉ được nhập số nhỏ hơn 999999')"
+                                                    oninput="this.setCustomValidity('')" required />
+            </div>
+            <div class="item">
+                <label for="state">Giá (kVND)<span>*</span></label>
+                <input id="Price" type="text" asp-for="Price" name="Price" pattern="^[0-9]{1,6}$"
+                                                    oninvalid="this.setCustomValidity('Chỉ được nhập số nhỏ hơn 999999')"
+                                                    oninput="this.setCustomValidity('')" required />
+            </div>
+            
+            <div class="btn-block">
+                <button type="submit">Lưu</button>
+            </div>
+        </form>
+    </div>
+</main>

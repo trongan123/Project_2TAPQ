@@ -1,0 +1,202 @@
+﻿@{
+
+    IEnumerable<BusinessObjects.Models.Notify> notifiAll = ViewBag.notifiAll as IEnumerable<BusinessObjects.Models.Notify>;
+    IEnumerable<BusinessObjects.Models.Notify> notifi = ViewBag.notifi as IEnumerable<BusinessObjects.Models.Notify>;
+    var not = ViewBag.notifiNum;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cooperate</title>
+     <LINK REL="SHORTCUT ICON"  HREF="~/images/logo.jpg">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/datepicker3.css" rel="stylesheet">
+    <link href="~/css/bootstrap-table.css" rel="stylesheet">
+    <link href="~/css/styles.css" rel="stylesheet">
+    <link href="~/css/modal.css" rel="stylesheet">
+
+    <!--Icons-->
+    <script src="~/js/lumino.glyphs.js"></script>
+
+    <!-- notification css -->
+    <link href="~/css/notification.css" rel="stylesheet">
+    <!-- icon new -->
+    <link href="~/fonts/themify-icons/themify-icons.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <header class="header">
+            <div class="grid">
+                <nav class="header__navbar">
+
+
+                    <ul class="header__navbar-list">
+                        <li class="header__navbar-item header__navbar-item--has-notify" onclick="readedcoop()">
+                            <a class="header__navbar-item-link">
+                                <i class="header__navbar-icon fa-regular ti-bell"></i>
+                                <span id="notify" class="badge">@ViewBag.notifiNum</span>
+                            </a>
+                            <div class="header__notify">
+                                <header class="header__notify-header">
+                                    <h3>Thông báo mới nhận</h3>
+                                </header>
+                                <ul class="header__notify-list">
+
+                                    @if (notifiAll != null)
+                                    {
+                                        @foreach (var item in notifiAll)
+                                        { @if (item.Status == 2)
+                                            {
+                                                <li class="header__notify-item header__notify-item--view">
+                                                    <a class="header__notify-link">
+                                                        <div class="header__notify-info">
+                                                            <span class="header__notify-name"> @item.Name</span>
+                                                            <span class="header__notify-disc"> @item.Description</span>
+                                                        </div>
+
+                                                    </a>
+
+
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                               <li class="header__notify-item">
+                                                    <a class="header__notify-link">
+                                                        <div class="header__notify-info">
+                                                            <span class="header__notify-name"> @item.Name</span>
+                                                            <span class="header__notify-disc"> @item.Description</span>
+                                                        </div>
+
+                                                    </a>
+
+                                                </li>
+                                            }
+
+
+
+                                        }
+
+                                    }
+
+                                </ul>
+
+                            </div>
+                        </li>
+
+                        <li class="header__navbar-item header__navbar-user">
+                            @if (@ViewBag.User != null)
+                            {
+                                if (@ViewBag.User.Image != null)
+                                {
+                                    <img src="@ViewBag.User.Image" style="width: 50px ; border-radius:20px ;">
+                                }
+                                else
+                                {
+
+                                    <img src="~/images/avatar.png" style="width: 50px ; border-radius:20px ;">
+                                }
+
+                                <span class="header__navbar-user-name">@ViewBag.User.Fullname</span>
+
+                                <ul class="header__navbar-user-menu">
+                                    <li class="header__navbar-user-item">
+                                        <a asp-action="AccountCooperative" asp-controller="AccountCooperative">Tài khoản của tôi</a>
+                                    </li>
+
+                                    <li class="header__navbar-user-item header__navbar-user-item--separate">
+                                        <a class="logout" asp-action="Login" asp-controller="Account">Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            }
+
+
+                        </li>
+                    </ul>
+                </nav>
+
+
+            </div>
+
+
+
+
+
+        </header>
+    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+        <img src="~/images/logo.jpg" alt="logo" width="250px ">
+        <ul class="nav menu">
+
+            <li>
+                <a asp-action="MemberCooperative" asp-controller="MemberCooperative">
+                    <svg class="glyph stroked male user ">
+                        <use xlink:href="#stroked-male-user" />
+                    </svg>Quản lý thành viên
+                </a>
+            </li>
+            <li>
+                <a asp-action="ComfirmMemberCooperative" asp-controller="MemberCooperative">
+                    <svg class="glyph stroked star">
+                        <use xlink:href="#stroked-star" />
+                    </svg>Quản lý tham gia hộp tác xã
+                </a>
+            </li>
+            <li>
+                <a asp-action="StaffCooperative" asp-controller="AccountCooperative">
+                    <svg class="glyph stroked male user ">
+                        <use xlink:href="#stroked-male-user" />
+                    </svg>Quản lý nhân viên
+                </a>
+            </li>
+            <li>
+                <a asp-action="CooperativeRoomCooperative" asp-controller="CooperativeRoomCooperative">
+                    <svg class="glyph stroked clipboard with paper">
+                        <use xlink:href="#stroked-clipboard-with-paper" />
+                    </svg>Quản lý khu vực sản xuất
+                </a>
+            </li>
+
+            <li>
+                <a asp-action="FishCategoryCooperative" asp-controller="FishCategoryCooperative">
+                    <svg class="glyph stroked notepad">
+                        <use xlink:href="#stroked-notepad" />
+                    </svg>Quản lý giống cá
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    @RenderBody()
+
+    <!--/.main-->
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+ 
+    <script src="~/js/jquery-1.11.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/bootstrap-table.js"></script>
+    <script src="~/js/notification_o.js"></script>
+    <script src="~/js/image.js"></script> 
+    
+    <script src="~/js/notify.js"></script>
+
+</body>
+
+</html>

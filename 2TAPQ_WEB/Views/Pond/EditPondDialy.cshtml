@@ -1,0 +1,49 @@
+﻿@model BusinessObjects.Models.PondDiary
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutFarm.cshtml";
+    DateTime a = Convert.ToDateTime(Model.Date);
+}
+<link rel="stylesheet" href="~/css/report.css">
+<main>
+    <div class="testbox">
+        <form asp-action="EditPondDialy">            
+            <input type="hidden" asp-for="IdPond" />
+            <input type="hidden" asp-for="IdDiary" />
+            <input type="hidden" asp-for="FishStatus" />
+            <input type="hidden" asp-for="Date" />
+
+            <div class="banner">
+                <h1>Cập Nhật Thông tin cho @a.ToString("dd/M/yyyy")</h1>
+                <img class="img_background" src="~/images/background.jpg" alt="">
+            </div>        
+            <div class="item">
+                <label for="city">Mật độ nước (m)<span>*</span></label>
+                <input id="WaterLevel" asp-for="WaterLevel"  type="text"  name="WaterLevel" required pattern="^[0-9]*[.]?[0-9]+$"
+                                                    oninvalid="this.setCustomValidity('Chỉ được nhập số (123.456)')"
+                                                    oninput="this.setCustomValidity('')" />
+            </div>
+            <div class="item">
+                <label for="state">Độ mặn (&#8240)<span>*</span></label>
+                <input id="Sanility" asp-for="Sanility" type="text" name="Sanility" required pattern="^[0-9]*[.]?[0-9]+$"
+                                                    oninvalid="this.setCustomValidity('Chỉ được nhập số (123.456)')"
+                                                    oninput="this.setCustomValidity('')" />
+            </div>
+            <div class="item">
+                <label for="state">Độ pH <span>*</span></label>
+                <input id="Ph" asp-for="Ph" type="text" name="Ph" required pattern="^[0-9]*[.]?[0-9]+$"
+                                                    oninvalid="this.setCustomValidity('Chỉ được nhập số (123.456)')"
+                                                    oninput="this.setCustomValidity('')" />
+            </div>
+            <div class="item">
+                <label for="state">Nhiệt độ (&#176C)<span>*</span></label>
+                <input id="Temperature" asp-for="Temperature" type="text" name="Temperature" required pattern="^-?^[0-9]*[.]?[0-9]+$"
+                                                    oninvalid="this.setCustomValidity('Chỉ được nhập số (123.456)')"
+                                                    oninput="this.setCustomValidity('')" />
+            </div>          
+            <div class="btn-block">
+                <button type="submit" >Lưu</button>
+            </div>
+        </form>
+    </div>
+</main>

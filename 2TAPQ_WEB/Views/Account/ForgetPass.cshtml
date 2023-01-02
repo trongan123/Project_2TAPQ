@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/styleforget.css">
+
+    <title>Forget</title>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1082.0" data-gr-ext-installed="" class="collapsed-sidebar hidden-sidebar">
+    <!-- Page Container -->
+    <div id="app" class="full-height">
+        <div class="split-page row">
+            <div class="left-panel col-sm-12 col-md-5 col-second">
+                <div class="memberinfo">
+                    <div class="memberinfo-heading">
+                        <div class="image">
+                            <img src="~/images/FG.jpg" width="100%" height="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="right-panel col-sm-12 col-md-7 col-second">
+                <div class="row justify-content-md-center">
+                    <div class="login-box col-sm-10 col-md-10 col-lg-8 col-xl-6">
+                        <div class="right">
+                            <form asp-action="ForgetPass">
+                                <input type="hidden" id="email" required name="email" value="@ViewBag.Email" />
+                                @if(ViewBag.Error != null){
+                                    <div class="login-header">
+                                        <p>
+                                            Vui lòng xác thực trước khi mật khẩu được đặt
+                                            lại.
+                                        </p>
+                                    </div>
+                                }
+                                else
+                                {
+                                 <div class="login-header">
+                                        <p>
+                                           @ViewBag.Error
+                                        </p>
+                                    </div>
+                                }
+                                <!---->
+                                <div class="right-box">
+
+                                    <div class="form-group text-left">
+                                        <label for="password">Mật khẩu mới</label>
+                                        <div class="relative">
+                                            <input id="password" type="password" name="password"
+                                                   required="required" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}"
+                                                   oninvalid="this.setCustomValidity('Password phải nhập lớn hơn 8 kí tự và bao gồm số lẫn chữ!')"
+                                                   oninput="this.setCustomValidity('')"
+                                                   autocomplete="current-password" placeholder="Nhập mật khẩu"
+                                                   class="form-control">
+
+                                            <a href="#" class="field-button togglePassword">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <!---->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Nhập lại mật khẩu </label>
+                                        <div class="form-group__verify field__verify_code field__code_valid">
+                                            <input placeholder="Nhập Lại Mật Khẩu" id="verify_code"
+                                                   type="password" name="confirmpassword"
+                                                   required="required" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}"
+                                                   oninvalid="this.setCustomValidity('Password phải nhập lớn hơn 8 kí tự và bao gồm số lẫn chữ!')"
+                                                   oninput="this.setCustomValidity('')"
+                                                   autocomplete="current-password"
+                                                   class="form-control field__verify_code field__code_valid">
+
+                                        </div>
+                                        <!---->
+                                    </div>
+                                    <!---->
+                                      <button type="submit" class="btn btn-primary text-uppercase text-bold mt-4">
+                                        <!---->
+                                        Thay đổi mật khẩu
+                                    </button>
+                                </div>
+
+
+                            </form>
+                            <div class="switch">
+                               
+                                <div class="image2">
+                                     <img src="~/images/images.png">
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /Page Container -->
+</body>
+
+</html>

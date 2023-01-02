@@ -1,0 +1,44 @@
+﻿@model BusinessObjects.Models.Pond
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutFarm.cshtml";
+    IEnumerable<BusinessObjects.Models.FishCategory> DetailFishCategory = ViewBag.FishCategory as IEnumerable<BusinessObjects.Models.FishCategory>;
+}
+<link rel="stylesheet" href="~/css/cssfarm/createPond.css">
+<main>
+    <div class="testbox">
+        <form asp-action="Harvest">
+            <input type="hidden" asp-for="IdAcc" />
+            <input type="hidden" asp-for="IdPond" />
+            <input type="hidden" asp-for="Status"  value="2"/>
+            <input type="hidden" asp-for="Name" />
+            <input type="hidden" asp-for="IdFcategory" />
+            <input type="hidden" asp-for="PondArea" />
+            <input type="hidden" asp-for="Session" />
+            <input type="hidden" asp-for="QuantityOfFingerlings" />
+            <input type="hidden" asp-for="StartDay" />
+            <input type="hidden" asp-for="EndDay" />
+            <input type="hidden" asp-for="Image"/>
+            <div class="banner">
+                <h1>Thông tin ao cần nhập</h1>
+                <img class="img_background" src="@Model.Image" id="imgp" alt="">
+            </div>
+            <div class="item">
+                <label for="state">Tên Ao<span>*</span></label>
+                <input id="Name" type="text" asp-for="Name" name="Name" required disabled/>
+            </div>
+            
+            <div class="item">
+                <label for="city"> Sản lượng thu Hoạch (tấn)<span>*</span></label>
+                <input asp-for="QuanlityOfEnd" type="text" required pattern='^[1-9]{1}[0-9]{0,10}$'
+                           oninvalid="this.setCustomValidity('Chi được nhập số nhỏ hơn 999999999')"
+                           oninput="this.setCustomValidity('')"/>
+            </div>
+           
+            <div class="btn-block">
+                <button type="submit" href="/">Lưu</button>
+            </div>
+        </form>
+    </div>
+</main>
+<script src="~/js/base64.js"></script>

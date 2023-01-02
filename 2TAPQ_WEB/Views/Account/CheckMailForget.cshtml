@@ -1,0 +1,101 @@
+﻿@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/styleforget.css">
+
+    <title>Forget</title>
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1082.0" data-gr-ext-installed="" class="collapsed-sidebar hidden-sidebar">
+    <!-- Page Container -->
+    <div id="app" class="full-height">
+        <div class="split-page row">
+            <div class="left-panel col-sm-12 col-md-5 col-second">
+                <div class="memberinfo">
+                    <div class="memberinfo-heading">
+                        <div class="image">
+                            <img src="~/images/FG.jpg" width="100%" height="100%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="right-panel col-sm-12 col-md-7 col-second">
+                <div class="row justify-content-md-center">
+                    <div class="login-box col-sm-10 col-md-10 col-lg-8 col-xl-6">
+                        <div class="right">
+                            <form asp-action="CheckMailForget">
+                                <input type="hidden" id="OTP" required name="OTP" value="" />
+                                <input type="hidden" id="emailt" required name="email" value="" />
+
+                                <div class="login-header">
+                                   
+                                </div>
+                                <!---->
+                                <div class="right-box">
+                                    <div class="form-group text-left">
+                                        <label for="email">Email</label>
+                                       <input id="email" type="text" required="required" placeholder="Email đăng nhập" pattern='^[\w-\.]+@@([\w-]+\.)+[\w-]{2,4}$'
+                                               oninvalid="this.setCustomValidity('Yêu cầu mail đúng định dạng!')"
+                                               oninput="this.setCustomValidity('')"
+                                               class="form-control">
+                                        <!---->
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password">Mã xác minh</label>
+                                        <div class="form-group__verify field__verify_code field__code_valid">
+                                            <input name="OTPV" placeholder="Mã xác minh từ email" id="verify_code"
+                                                type="text" required="required"
+                                                class="form-control field__verify_code field__code_valid">
+                                            <button id="btn-getcode" type="button" onclick="SendOTP()"
+                                                class="btn1 btn-secondary">Lấy Mã OTP
+                                            </button>
+
+                                            @if(@ViewBag.OTP!=null){
+                                                <label id="send" class="notification" style="color:rgba(253, 0, 0, 0.8) ; " >@ViewBag.OTP</label>
+                                            }
+                                            else
+                                            {
+                                                <label id="send" class="notification" style="color:rgba(253, 0, 0, 0.8) ; " ></label>  
+                                            }
+                                        </div>
+                                        <!---->
+                                    </div>
+                                    <!---->
+                                    <button type="submit" class="btn btn-primary text-uppercase text-bold mt-4">
+                                        <!---->
+                                       Tiếp Tục
+                                    </button>
+                                </div>
+
+                           </form>
+                          
+                            <div class="switch">
+                              
+                                <div class="image2">
+                                    <img src="~/images/images.png">
+                                </div>
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /Page Container -->
+</body>
+  <script src="~/js/jquery-1.11.1.min.js"></script>
+<script src="~/js/forget.js"></script>
+
+</html>

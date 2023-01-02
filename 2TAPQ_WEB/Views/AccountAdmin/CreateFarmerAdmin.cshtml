@@ -1,0 +1,132 @@
+﻿@model BusinessObjects.Models.Account
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    IEnumerable<BusinessObjects.Models.Ward> DetailWard = ViewBag.Ward as IEnumerable<BusinessObjects.Models.Ward>;
+    IEnumerable<BusinessObjects.Models.District> DetailDistrict = ViewBag.District as IEnumerable<BusinessObjects.Models.District>;
+    IEnumerable<BusinessObjects.Models.Province> DetailProvince = ViewBag.Province as IEnumerable<BusinessObjects.Models.Province>;
+}
+
+
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+    <div class="row">
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">
+                    <svg class="glyph stroked home">
+                        <use xlink:href="#stroked-home"></use>
+                    </svg>
+                </a>
+            </li>
+            <li><a href="farmer.html">Quản lý chủ hộ</a></li>
+            <li class="active">Thêm chủ hộ</li>
+        </ol>
+    </div>
+    <!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Thêm chủ hộ</h1>
+        </div>
+    </div>
+    <!--/.row-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-8">
+                        @if (@ViewBag.emailExist != null)
+                        {
+                            <div class="alert alert-danger">Email đã tồn tại !</div>
+                        }
+                        <form asp-action="CreateFarmer">
+                            <input type="hidden" asp-for="IdAcc" value="A000000001" />
+                            <input type="hidden" asp-for="Status" value="1" />
+                            <input type="hidden" asp-for="Role" value="2" />
+
+                            <div class="form-group">
+                                <label>Họ & Tên</label>
+                                <input asp-for="Fullname" name="Fullname" required class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input asp-for="Email" name="Email" required pattern='^[\w-\.]+@@([\w-]+\.)+[\w-]{2,4}$'
+                                       oninvalid="this.setCustomValidity('Email sai định dạng!!!')"
+                                       oninput="this.setCustomValidity('')" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Tên đăng nhập</label>
+                                <input asp-for="Username" name="UserName" required type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Số điên thoại</label>
+                                <input asp-for="Phone" name="Phone" required  pattern='^(\+84|0[3|5|7|8|9])+([0-9]{8})'
+                           oninvalid="this.setCustomValidity('Số điện thoại chưa hợp lệ!!!')"
+                           oninput="this.setCustomValidity('')" type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Sinh nhật</label>
+                                <input asp-for="Birthday" name="Birthday" required id="datePickerId" type="date" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <div class=" col col-third  ">
+                                    <label>Xã/Phường</label>
+                                    <select asp-for="IdWard" id="Ward"  name="IdWard" class="form-control">
+                                       
+                                    </select>
+                                </div>
+
+                                <div class="col col-third ">
+                                    <label>Huyện/Quận</label>
+                                    <select name="user_level"id="district" onchange="functionWard(this.value)" class="form-control">
+                                        
+                                    </select>
+
+                                </div>
+                                <div class="col col-third ">
+                                    <label>Tỉnh/Thành phố</label>
+                                    <select name="user_level" id="province" onchange="functionDistrict(this.value)" class="form-control">
+                                        @foreach (var item in DetailProvince)
+                                        {
+                                            <option value="@item.IdProvince">@item.Name</option>
+
+                                        }
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Địa chi</label>
+                                <input asp-for="Address" name="Address" required type="text" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input asp-for="Password" name="Password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}"
+                           oninvalid="this.setCustomValidity('Mật khẩu nhiều hơn 8 kí tự và phải có số và chữ!')"
+                           oninput="this.setCustomValidity('')" type="password" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Xác nhận mật khẩu</label>
+                                <input name="user_re_pass" required type="password" class="form-control">
+                            </div>
+                           
+                            <button name="sbm" type="submit" class="btn btn-success">Thêm mới</button>
+                            <button type="reset" class="btn btn-default">Làm mới</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div><!-- /.col-->
+    </div><!-- /.row -->
+
+</div>
+<script>
+    // Get the modal
+datePickerId.max = new Date().toISOString().split("T")[0];
+</script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/areaset.js"></script>

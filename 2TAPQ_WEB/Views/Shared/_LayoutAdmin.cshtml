@@ -1,0 +1,199 @@
+﻿@{
+
+    IEnumerable<BusinessObjects.Models.Notify> notifiAll = ViewBag.notifiAll as IEnumerable<BusinessObjects.Models.Notify>;
+    IEnumerable<BusinessObjects.Models.Notify> notifi = ViewBag.notifi as IEnumerable<BusinessObjects.Models.Notify>;
+    var not = ViewBag.notifiNum;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+     <LINK REL="SHORTCUT ICON"  HREF="~/images/logo.jpg">
+    <link href="~/css/cssadmin/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/cssadmin/datepicker3.css" rel="stylesheet">
+    <link href="~/css/cssadmin/bootstrap-table.css" rel="stylesheet">
+    <link href="~/css/fonts/themify-icons/themify-icons.css" rel="stylesheet">
+
+    <link href="~/css/cssadmin/styles.css" rel="stylesheet">
+    <link href="~/css/cssadmin/modal.css" rel="stylesheet">
+    <link href="~/css/cssadmin/notification_admin.css" rel="stylesheet">
+    
+    <!--Icons-->
+    <script src="~/js/lumino.glyphs.js"></script>
+
+</head>
+
+<body>
+
+ <header class="header">
+            <div class="grid">
+                <nav class="header__navbar">
+
+
+                    <ul class="header__navbar-list">
+                        <li class="header__navbar-item header__navbar-item--has-notify" onclick="readedadmin()">
+                            <a class="header__navbar-item-link">
+                                <i class="header__navbar-icon fa-regular ti-bell"></i>
+                                <span id="notify" class="badge">@ViewBag.notifiNum</span>
+                            </a>
+                            <div class="header__notify">
+                                <header class="header__notify-header">
+                                    <h3>Thông báo mới nhận</h3>
+                                </header>
+                                <ul class="header__notify-list">
+
+                                    @if (notifiAll != null)
+                                    {
+                                        @foreach (var item in notifiAll)
+                                        { @if (item.Status == 2)
+                                            {
+                                                <li class="header__notify-item header__notify-item--view">
+                                                    <a class="header__notify-link">
+                                                        <div class="header__notify-info">
+                                                            <span class="header__notify-name"> @item.Name</span>
+                                                            <span class="header__notify-disc"> @item.Description</span>
+                                                        </div>
+
+                                                    </a>
+
+
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                               <li class="header__notify-item">
+                                                    <a class="header__notify-link">
+                                                        <div class="header__notify-info">
+                                                            <span class="header__notify-name"> @item.Name</span>
+                                                            <span class="header__notify-disc"> @item.Description</span>
+                                                        </div>
+
+                                                    </a>
+
+                                                </li>
+                                            }
+
+
+
+                                        }
+
+                                    }
+
+                                </ul>
+
+                            </div>
+                        </li>
+
+                        <li class="header__navbar-item header__navbar-user">
+                            @if (@ViewBag.User != null)
+                            {
+                                if (@ViewBag.User.Image != null)
+                                {
+
+                                    <img src="@ViewBag.User.Image" style="width: 50px ; border-radius:20px ;">
+                                }
+                                else
+                                {
+
+                                    <img src="~/images/avatar.png" style="width: 50px ; border-radius:20px ;">
+                                }
+
+                                <span class="header__navbar-user-name">@ViewBag.User.Fullname</span>
+
+                                <ul class="header__navbar-user-menu">
+
+                                    <li class="header__navbar-user-item header__navbar-user-item--separate">
+                                        <a class="logout" asp-action="Login" asp-controller="Account">Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            }
+
+
+                        </li>
+                    </ul>
+                </nav>
+
+
+            </div>
+
+
+
+
+
+        </header>
+
+
+    <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
+        <img src="~/images/logo.jpg" alt="logo" width="250px ">
+        <ul class="nav menu">
+            <li class="active">
+                <a asp-action="FarmerAdmin" asp-controller="AccountAdmin">
+                    <svg class="glyph stroked dashboard-dial">
+                        <use xlink:href="#stroked-dashboard-dial"></use>
+                    </svg> Dashboard
+                </a>
+            </li>
+            <li>
+                <a asp-action="FarmerAdmin" asp-controller="AccountAdmin">
+                    <svg class="glyph stroked male user ">
+                        <use xlink:href="#stroked-male-user" />
+                    </svg>Quản lý chủ hộ
+                </a>
+            </li>
+            <li>
+                <a asp-action="CooperativeAdmin" asp-controller="CooperativeRoomAdmin">
+                    <svg class="glyph stroked star">
+                        <use xlink:href="#stroked-star" />
+                    </svg>Quản lý hộp tác xã
+                </a>
+            </li>
+            <li>
+                <a asp-action="ChartPondAdmin" asp-controller="PondAdmin">
+                    <svg class="glyph stroked landscape">
+                        <use xlink:href="#stroked-landscape" />
+                    </svg>Quản lý khu vực trang trại
+                </a>
+            </li>
+
+            <li>
+                <a asp-action="FishCategoryAdmin" asp-controller="FishCategoryAdmin">
+                    <svg class="glyph stroked eye">
+                        <use xlink:href="#stroked-eye" />
+                    </svg>Quản lý chủng loại cá
+                </a>
+            </li>
+            <li>
+                <a asp-action="ConfirmFishAdmin" asp-controller="FishCategoryAdmin">
+                    <svg class="glyph stroked eye">
+                        <use xlink:href="#stroked-eye" />
+                    </svg>Quản lý xác nhận loại cá
+                </a>
+            </li>
+            <li>
+                <a asp-action="HistoryDelete" asp-controller="AccountAdmin">
+                    <svg class="glyph stroked trash">
+                        <use xlink:href="#stroked-trash" />
+                    </svg>Quản lý lịch sử xóa
+                </a>
+            </li>
+        </ul>
+
+    </div>
+
+    @RenderBody()
+
+    <script src="~/js/jquery-1.11.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/bootstrap-table.js"></script>
+    <script src="~/js/notication_admin.js"></script>	
+    <script src="~/js/notify.js"></script>
+    <script src="~/js/image.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="~/js/ChartAdmin.js"></script>
+</body>
+
+</html>

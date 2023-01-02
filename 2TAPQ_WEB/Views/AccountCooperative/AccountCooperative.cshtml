@@ -1,0 +1,140 @@
+﻿@model BusinessObjects.Models.Account
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutCooperative.cshtml";
+}
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+
+    <!--/.row-->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Thông Tin Hợp Tác Xã</h1>
+        </div>
+    </div>
+    <!--/.row-->
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <form asp-action="EditAccountCooperative">
+                        <div class="row">
+                            <div class="col-md-3 border-right">
+                                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+
+                                    @if (@Model.Image != null)
+                                    {
+
+                                        <img class="rounded-circle mt-5" width="150px" id="imgA"
+                                         src="@Model.Image">
+
+                                        <span class="text-black"></span>
+
+                                        <span> </span>
+
+                                    }
+                                    else
+                                    {
+                                        <img class="rounded-circle mt-5" width="150px" id="imgA"
+                                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+
+                                        <span class="text-black"></span>
+
+                                        <span> </span>
+                                    }
+                                </div>
+
+                                <input name="FileAvata" id="FileAvata" class="input--style-4" type="file">
+                            </div>
+                            <div class="col-md-5 border-right">
+                                <div class="p-3 py-5">
+                                    <input type="hidden" asp-for="IdAcc" />
+                                    <input type="hidden" asp-for="Status" />
+                                    <input type="hidden" asp-for="Role" />
+                                    <input type="hidden" asp-for="Password" />
+                                    <input type="hidden" asp-for="DateJoin" />
+                                    <input type="hidden" asp-for="Email" />
+
+                                    <input type="hidden" asp-for="IdWard" />
+                                    <input type="hidden" asp-for="Address" />
+                                    <input type="hidden" asp-for="Username" />
+                                    <input type="hidden" asp-for="Image" id="ImageA" value="@Model.Image" />
+                                    <div class="row mt-2">
+                                        <div class="col-md-6">
+                                            <label class="labels">Tài Khoản</label><input type="text"
+                                                                                          class="form-control" asp-for="Username" disabled>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="labels">Khu Vực</label><input type="text"
+                                                                                        class="form-control" value="@Model.IdWardNavigation.IdDistrictNavigation.IdProvinceNavigation.Name" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-12">
+                                            <label class="labels">Số Điện Thoại</label><input type="text" class="form-control" asp-for="Phone" required pattern='^(\+84|0[3|5|7|8|9])+([0-9]{8})'
+                                                                                              oninvalid="this.setCustomValidity('Yêu cầu ngập số điện thoại đúng định dạng')"
+                                                                                              oninput="this.setCustomValidity('')">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="labels">Họ & Tên</label><input type="text"
+                                                                                         class="form-control" asp-for="Fullname" pattern='^^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ 0123456789]{1,50}$'
+                                       oninvalid="this.setCustomValidity('Tên Không được quá dài')"
+                                       oninput="this.setCustomValidity('')" />
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="labels">Mật Khẩu</label><input type="text"
+                                                                                         class="form-control" value="******" disabled>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="labels">Ngày Sinh</label><input type="date"
+                                                                                          class="form-control" asp-for="Birthday" id="datePickerId"
+                                                                                          oninvalid="this.setCustomValidity('Yêu cầu nhâp ngày sinh đúng định dạng')">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <label class="labels">Quận/Huyện</label><input type="text"
+                                                                                           class="form-control" value="@Model.IdWardNavigation.IdDistrictNavigation.Name" disabled>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="labels">Phường/Xã</label><input type="text"
+                                                                                          class="form-control" value="@Model.IdWardNavigation.Name" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 text-center">
+                                        <button class="btn btn-primary profile-button"
+                                                type="submit">
+                                            Cập Nhật
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 py-5">
+
+                                    <div class="col-md-12">
+                                        <label class="labels">Mã Tham Gia</label><input type="text"
+                                                                                      class="form-control" value="@ViewBag.JoinCode" disabled>
+                                    </div>
+                                    <br>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    // Get the modal
+    datePickerId.max = new Date().toISOString().split("T")[0];
+</script>
+<script src="~/js/jquery-1.11.1.min.js"></script>
+<script src="~/js/base64staff.js"></script>

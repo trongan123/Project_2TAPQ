@@ -1,0 +1,124 @@
+﻿@model BusinessObjects.Models.Account
+@{
+    Layout = "";
+    IEnumerable<BusinessObjects.Models.Ward> DetailWard = ViewBag.Ward as IEnumerable<BusinessObjects.Models.Ward>;
+    IEnumerable<BusinessObjects.Models.District> DetailDistrict = ViewBag.District as IEnumerable<BusinessObjects.Models.District>;
+    IEnumerable<BusinessObjects.Models.Province> DetailProvince = ViewBag.Province as IEnumerable<BusinessObjects.Models.Province>;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <LINK REL="SHORTCUT ICON" HREF="~/images/logo.jpg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/StyleRegister.css">
+    <title>register screen</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="form-title">Registeration</h1>
+        <form asp-action="Register">
+            <input type="hidden" asp-for="IdAcc" value="A000000001" />
+            <input type="hidden" asp-for="Status" value="1" />
+            <input type="hidden" asp-for="Role" value="2" />
+            <input type="hidden" asp-for="Email" value="@ViewBag.Email" />
+
+            <div class="main-user-info">
+                <div class="user-input-box">
+                    <label for="fullName">Họ & Tên</label>
+                    <input type="text" asp-for="Fullname" id="fullName" name="fullName" required pattern='^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ 0123456789]{1,50}$'
+                           oninvalid="this.setCustomValidity('Không được quá dài')"
+                           oninput="this.setCustomValidity('')"  placeholder="Nhập họ và tên">
+
+                </div>
+
+                <div class="user-input-box">
+                    <label for="userName">Tên Đăng Nhập</label>
+                    <input type="text" asp-for="Username" id="userName" name="userName" placeholder="Nhập tên đăng nhập" required pattern='^[a-z0-9_-]{1,50}$'
+                           oninvalid="this.setCustomValidity('Không được quá dài')"
+                           oninput="this.setCustomValidity('')">
+                </div>
+
+                <div class="user-input-box">
+                    <label for="password">Mật Khẩu</label>
+                    <input type="password" asp-for="Password" id="password" name="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}"
+                           oninvalid="this.setCustomValidity('Mật khẩu nhiều hơn 8 kí tự và phải có số và chữ!')"
+                           oninput="this.setCustomValidity('')" placeholder="Nhập Mật Khẩu">
+
+                </div>
+
+                <div class="user-input-box">
+                    <label for="email">Email</label>
+                    <input type="text" value="@ViewBag.Email" disabled>
+
+                </div>
+
+
+                <div class="user-input-box">
+                    <label for="confirmPassword">Xác Nhận Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Xác Nhập lại mật khẩu">
+
+                </div>
+
+                <div class="user-input-box">
+                    <label for="birthday">Sinh Nhật</label>
+                    <input type="date" asp-for="Birthday" id="datePickerId" name="birthday" required placeholder="Nhập sinh nhật">
+
+                </div>
+                <div class="user-input-box">
+                    <label for="phone">Số Điện Thoại</label>
+                    <input type="text" asp-for="Phone" id="Phone" name="Phone" required pattern='^(\+84|0[3|5|7|8|9])+([0-9]{8})'
+                           oninvalid="this.setCustomValidity('Phone is Wrong format')"
+                           oninput="this.setCustomValidity('')" placeholder="Nhập số điên thoại">
+
+                </div>
+                <div class="user-input-box">
+                    <label for="address">Địa Chỉ</label>
+                    <input type="text" asp-for="Address" id="Address" name="Address" required placeholder="Nhập địa chỉ nhà">
+
+                </div>
+
+                <div class="user-input-box3">
+                    <label for="province">Tỉnh/Thành Phố</label>
+                    <select name="" id="province" onchange="functionDistrict(this.value)">
+                        @foreach (var item in DetailProvince)
+                        {
+                            <option value="@item.IdProvince">@item.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="user-input-box3">
+                    <label for="district">Huyện/Quận</label>
+                    <select name="" id="district" onchange="functionWard(this.value)">
+                    </select>
+                </div>
+
+                <div class="user-input-box3">
+                    <label for="ward">Xã/Phường</label>
+                    <select asp-for="IdWard" id="Ward">
+                    </select>
+                </div>
+
+
+            </div>
+
+
+            <div class="form-submit-btn">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+    </div>
+
+
+</body>
+<script>
+    // Get the modal
+    datePickerId.max = new Date().toISOString().split("T")[0];
+</script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/areaset.js"></script>
+</html>

@@ -1,0 +1,104 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    background: white;
+    padding: 28px;
+    margin: 0 28px;
+    border-radius: 10px;
+    box-shadow: inset -2px 2px 2px rgb(192,192,192);
+}
+
+.col-second {
+    width: 40%;
+}
+
+.split-page.row {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.right-panel {
+    width: 50%;
+    float: right;
+    margin-left: 20px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0%, rgba(0, 0, 0, 0.16) 2%, #FFFFFF 30%, #FFFFFF 99%);
+    height: 600px;
+}
+
+.login-header {
+    margin-top: 20px;
+    font-size: 16px;
+    margin-bottom: 30px;
+    color: #ec0000;
+}
+
+    .login-header p {
+        margin-left: 10px;
+    }
+
+.right-box {
+    font-size: 26px;
+    text-align: left;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    margin-left: 20px;
+}
+
+
+.form-control {
+    padding: 12px;
+    margin-bottom: 20px;
+    width: 250px;
+    border-radius: 10px;
+}
+
+.btn-primary {
+    margin-bottom: 20px;
+}
+
+.btn-link {
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 50px;
+}
+
+.image2 {
+    float: right;
+    margin-right: 5px;
+}
+
+.btn {
+    cursor: pointer;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.btn1 {
+    cursor: pointer;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+}

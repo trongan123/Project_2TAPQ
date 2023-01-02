@@ -1,0 +1,66 @@
+﻿@model BusinessObjects.Models.Pond
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutFarm.cshtml";
+    IEnumerable<BusinessObjects.Models.FishCategory> DetailFishCategory = ViewBag.FishCategory as IEnumerable<BusinessObjects.Models.FishCategory>;
+}
+<link rel="stylesheet" href="~/css/cssfarm/createPond.css">
+<main>
+    <div class="testbox">
+        <form asp-action="AddPond">
+            <input type="hidden" asp-for="IdAcc" value="@ViewBag.Idacc" />
+            <input type="hidden" asp-for="IdPond" value="P000000001" />
+            <input type="hidden" asp-for="Status" value="1" />
+             <input type="hidden" asp-for="Image" value="" id="ImagePond" name="Image"/>
+            <div class="banner">
+                <h1>Thông tin ao cần nhập</h1>
+                <img class="img_background" src="/img/background.jpg" id="imgp" alt="">
+            </div>
+
+
+            <div class="item">
+                <label>Mùa Vụ<span>*</span></label>
+                <select asp-for="Session" name="Session" style="width:98% ; height: 34.5px;">
+                    <option value=1>Quý 1</option>
+                    <option value=2>Quý 2</option>
+                    <option value=3>Quý 3</option>
+                </select>
+            </div>
+            <div class="item">
+                <label for="state">Tên ao<span>*</span></label>
+                <input id="Name" type="text" asp-for="Name" name="Name" required pattern='^[a-zA-Z_ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ 0123456789]{1,50}$'
+                           oninvalid="this.setCustomValidity('Không được quá dài')"
+                           oninput="this.setCustomValidity('')" />
+            </div>
+            <div class="item">
+                <label for="state">Diện tích ao (m&sup2;)<span>*</span></label>
+                <input id="PondArea" type="text" asp-for="PondArea" name="PondArea" required pattern='^[0-9]{1,50}$'
+                           oninvalid="this.setCustomValidity('Chỉ được nhập số')"
+                           oninput="this.setCustomValidity('')" />
+            </div>
+            <div class="item">
+                <label for="city">Lượng cá giống (Vạn con)<span>*</span></label>
+                <input asp-for="QuantityOfFingerlings" type="text" required pattern='^[0-9]{1,50}$'
+                           oninvalid="this.setCustomValidity('Chỉ được nhập số')"
+                           oninput="this.setCustomValidity('')"/>
+            </div>
+            <div class="item">
+                <label>Giống cá<span>*</span></label>
+                <select asp-for="IdFcategory" style="width:98% ; height: 34.5px;">
+                    @foreach (var item in DetailFishCategory)
+                    {
+                        <option value="@item.IdFcategory">@item.CategoryName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="item">
+                <label>Chọn ảnh ao:<input id="FilePond" type="file" required/></label>
+            </div>
+            <div class="btn-block">
+                <button type="submit" href="/">Lưu</button>
+            </div>
+        </form>
+    </div>
+</main>
+<script src="~/js/base64.js"></script>
